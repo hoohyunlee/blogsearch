@@ -29,22 +29,22 @@ public class RankApplicationTests {
         String q2 = "Query Test2";
 
         // 1. 최초 q1을 호출하여 신규로 등록
-        mockMvc.perform(patch("/blogSearch/keywordRank/keyword").param("q", q1))
+        mockMvc.perform(patch("/rank/keyword").param("q", q1))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.statusMessage", is("success")));
 
         // 2. q1을 재호출 하여, 카운터만 증가
-        mockMvc.perform(patch("/blogSearch/keywordRank/keyword").param("q", q1))
+        mockMvc.perform(patch("/rank/keyword").param("q", q1))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.statusMessage", is("success")));
 
         // 3. q2를 호출하여 신규로 등록
-        mockMvc.perform(patch("/blogSearch/keywordRank/keyword").param("q", q2))
+        mockMvc.perform(patch("/rank/keyword").param("q", q2))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.statusMessage", is("success")));
 
         // 4. get api 호출하여 결과 확인
-        mockMvc.perform(get("/blogSearch/keywordRank/keywords"))
+        mockMvc.perform(get("/rank/keywords"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.statusMessage", is("success")))
                 .andExpect(jsonPath("$.resultData", hasSize(2)))
