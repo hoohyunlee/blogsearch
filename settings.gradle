@@ -1,0 +1,5 @@
+rootProject.name = 'blogsearch'
+include 'rank-api'
+include 'core'
+include 'search-api'
+

@@ -1,0 +1,8 @@
+server:
+  port: 8080
+
+# Local의 Rank API에 대한 정보
+interface:
+  rankService:
+    url: http://127.0.0.1:8081/rank/keyword
+    param: ?q={q}
