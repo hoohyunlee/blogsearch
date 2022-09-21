@@ -9,6 +9,7 @@ import com.hh.blogsearch.vo.SearchResultVO;
 import com.hh.blogsearch.exception.vo.NoQueryParameterException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -26,6 +27,8 @@ import java.util.Map;
 public class SearchService {
     private final WebClient webClient;
 
+    // Embedded Redis를 이용하여, 로컬 캐시 적용 (Key는 "Cache:"+q, Value는 List<SearchResultVO>, TTL:30분)
+    @Cacheable(value = "List<SearchResultVO>", key = "#searchParamDTO.q", cacheManager = "cacheManager")
     public List<SearchResultVO> getBlogSearchResultSvc(SearchParamDTO searchParamDTO) {
         List<SearchResultVO> searchResultList = new ArrayList<>();
 
@@ -43,6 +46,7 @@ public class SearchService {
                         .retrieve()
                         .bodyToMono(Map.class)
                         .block();
+                log.info("[오픈 API 요청] "+apiSpec.getUrl() + ", 응답완료-resultMap Size: "+ resultMap.size());
                 // 응답받은 데이터를 SearchResultVO 형식으로 파싱하여 리턴
                 List<Map<String, Object>> dataMap = (List<Map<String, Object>>) resultMap.get(apiRes.getElementName());
                 for(Map<String, Object> m : dataMap){

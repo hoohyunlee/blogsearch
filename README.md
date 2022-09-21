@@ -138,6 +138,8 @@ curl -X GET "http://127.0.0.1:8081/rank/keywords"
 
   (https://github.com/hoohyunlee/blogsearch/blob/main/jars/rank-api-0.0.1-SNAPSHOT.jar)
 
+  (사용포트 : 8081)
+
   ```bash
   java -jar rank-api-0.0.1-SNAPSHOT.jar
   ```
@@ -148,29 +150,38 @@ curl -X GET "http://127.0.0.1:8081/rank/keywords"
 
   (https://github.com/hoohyunlee/blogsearch/blob/main/jars/search-api-0.0.1-SNAPSHOT.jar)
 
+  (사용포트: 8080, 16379 (Embedded Redis))
+  
   ```bash
   java -jar search-api-0.0.1-SNAPSHOT.jar
   ```
-
+  
   
 
 
 
 # 3. 주요 Feature
 
-- **Environment** : JAVA11, Spring Boot, Gradle, H2 DB, JPA (Querydsl)
+- **Environment** : 
+  - JAVA11
+  - Spring Boot
+  - Gradle Project
+  - H2 DB
+  - JPA (Querydsl : 쿼리 작성 용이)
+  - Embedded Redis : 로컬 캐시 적용을 위함
+
 - **멀티 모듈 구성**
   - **core** : 공통 응답 객체, 공통 에러 처리용 Handler, 오픈 API 호출용 Static Enum Data 관리
   - **rank-api** : 인기 검색어 목록 API 및 검색 키워드 카운트를 위한 어플리케이션
   - **search-api** : Kakao, Naver 오픈 API 호출 및 블로그 검색 결과 응답을 위한 어플리케이션
 - **Kakao API**에서 정상응답을 못 받을 경우, **Naver API**를 호출하여 결과 제공
 - **추가 확장성**을 위해, kakao 및 naver 등 각 오픈API 요청에 필요한 Static 데이터 (URI, Parameter명, Header 등)와 응답 받아 공용 포맷의 객체에 맵핑을 위한 응답 엘리먼트명 (kakao는 contents, naver는 description 등) 정보는 Core어플리케이션의 Enum으로 별도 관리하여 **오픈 API 추가 필요 시, 데이터만 추가 하면 됨**
+- **트래픽이 많은 상황**을 대비해 블로그 검색 API는 **Embedded Redis**를 활용하여 **로컬 캐시** 적용하여 오픈 API로 요청을 최소화
 - **동시성**을 위해 카운트 Update 메소드에 Transaction 구성, 향후 DB 테이블 확장 등을 위해 JPA Querydsl Repository 구성
 - **테스트 케이스** : 
   - 블로그 검색 및 인기 검색어 API 통합 테스트 
   - Querydsl Select 및 Insert, Update 기능 테스트 
   - Enum 데이터 요청 및 응답을 위한 맵핑 및 Webclient 통신 테스트 
-
 
 
 
