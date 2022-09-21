@@ -8,30 +8,15 @@ import com.hh.blogsearch.vo.SearchResultVO;
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
-import okhttp3.mockwebserver.internal.duplex.DuplexResponseBody;
-import org.apache.tomcat.util.json.JSONParser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Answers;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.JacksonJsonParser;
-import org.springframework.boot.json.JsonParser;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static org.mockito.BDDMockito.*;
-import static org.mockito.Mockito.*;
-import static org.mockito.ArgumentMatchers.*;
 /**
  * 외부 API 서비스 호출과 응답 파싱 테스트를 위한 서비스 테스트
  */
