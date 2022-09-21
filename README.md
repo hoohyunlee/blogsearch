@@ -131,7 +131,25 @@ curl -X GET "http://127.0.0.1:8081/rank/keywords"
 
 # 2. jar파일 다운로드 링크
 
+- **Rank-API 경로: `github` /jars/rank-api-0.0.1-SNAPSHOT.jar**
 
+  (https://github.com/hoohyunlee/blogsearch/blob/main/jars/rank-api-0.0.1-SNAPSHOT.jar)
+
+  ```bash
+  java -jar rank-api-0.0.1-SNAPSHOT.jar
+  ```
+
+  
+
+- **Search-API 경로: `github` /jars/search-api-0.0.1-SNAPSHOT.jar**
+
+  (https://github.com/hoohyunlee/blogsearch/blob/main/jars/search-api-0.0.1-SNAPSHOT.jar)
+
+  ```bash
+  java -jar search-api-0.0.1-SNAPSHOT.jar
+  ```
+
+  
 
 
 
