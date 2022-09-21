@@ -131,6 +131,8 @@ curl -X GET "http://127.0.0.1:8081/rank/keywords"
 
 # 2. jar파일 다운로드 링크
 
+멀티모듈 구성으로 메인 어플리케이션은 Rank-API와 Search-API 2개로, 두 어플리케이션 모두 실행 필요
+
 - **Rank-API 경로: `github` /jars/rank-api-0.0.1-SNAPSHOT.jar**
 
   (https://github.com/hoohyunlee/blogsearch/blob/main/jars/rank-api-0.0.1-SNAPSHOT.jar)
@@ -155,15 +157,19 @@ curl -X GET "http://127.0.0.1:8081/rank/keywords"
 
 # 3. 주요 Feature
 
-- Environment : JAVA11, Spring Boot, Gradle, H2 DB, JPA (Querydsl)
-- 멀티 모듈 구성
-  - core : 공통 응답 객체, 공통 에러 처리용 Handler, 오픈 API 호출용 Static Enum Data 관리
-  - rank-api : 인기 검색어 목록 API 및 검색 키워드 카운트를 위한 어플리케이션
-  - search-api : Kakao, Naver 오픈 API 호출 및 블로그 검색 결과 응답을 위한 어플리케이션
-- Kakao API에서 정상응답을 못 받을 경우, Naver API를 호출하여 결과 제공
-- 추가 확장성을 위해, kakao 및 naver 등 각 오픈API 요청에 필요한 Static 데이터 (URI, Parameter명, Header 등)와 응답 받아 공용 포맷의 객체에 맵핑을 위한 응답 엘리먼트명 (kakao는 contents, naver는 description 등) 정보는 Core어플리케이션의 Enum으로 관리
-- 동시성을 위해 카운트 Update 메소드에 Transaction 구성, 향후 DB 테이블 확장 등을 위해 JPA Querydsl Repository 구성
-- 테스트 케이스 : 블로그 검색 및 인기 검색어 API 통합 테스트 / Querydsl Select 및 Insert, Update 기능 테스트 / Enum 데이터 요청 및 응답을 위한 맵핑 및 Webclient 통신 테스트 
+- **Environment** : JAVA11, Spring Boot, Gradle, H2 DB, JPA (Querydsl)
+- **멀티 모듈 구성**
+  - **core** : 공통 응답 객체, 공통 에러 처리용 Handler, 오픈 API 호출용 Static Enum Data 관리
+  - **rank-api** : 인기 검색어 목록 API 및 검색 키워드 카운트를 위한 어플리케이션
+  - **search-api** : Kakao, Naver 오픈 API 호출 및 블로그 검색 결과 응답을 위한 어플리케이션
+- **Kakao API**에서 정상응답을 못 받을 경우, **Naver API**를 호출하여 결과 제공
+- **추가 확장성**을 위해, kakao 및 naver 등 각 오픈API 요청에 필요한 Static 데이터 (URI, Parameter명, Header 등)와 응답 받아 공용 포맷의 객체에 맵핑을 위한 응답 엘리먼트명 (kakao는 contents, naver는 description 등) 정보는 Core어플리케이션의 Enum으로 별도 관리하여 **오픈 API 추가 필요 시, 데이터만 추가 하면 됨**
+- **동시성**을 위해 카운트 Update 메소드에 Transaction 구성, 향후 DB 테이블 확장 등을 위해 JPA Querydsl Repository 구성
+- **테스트 케이스** : 
+  - 블로그 검색 및 인기 검색어 API 통합 테스트 
+  - Querydsl Select 및 Insert, Update 기능 테스트 
+  - Enum 데이터 요청 및 응답을 위한 맵핑 및 Webclient 통신 테스트 
+
 
 
 
