@@ -130,6 +130,7 @@ curl -X GET "http://127.0.0.1:8081/rank/keywords"
 
 
 # 2. jar파일 다운로드 링크
+멀티모듈 구성으로 메인 어플리케이션은 Rank-API와 Search-API 2개로 2개 모두 실행 필요
 
 - **Rank-API 경로: `github` /jars/rank-api-0.0.1-SNAPSHOT.jar**
 
